@@ -1,5 +1,5 @@
 
-let plusNum = document.getElementsByClassName('fas fa-plus-circle');
+let plusNum = document.getElementsByClassName('fa-plus-circle');
  //console.log(plusNum);
 // plusNum.addEventListener('submit', plusNum);
 
@@ -12,7 +12,10 @@ for(let i = 0; i < plusNum.length; i++){
 function addNum(e){
     // e.preventDefault();
 
-    let quantity = document.querySelector('.quantity');
+    let parentElement = e.target.closest('.card-body') //closest represents the closest element that's been clicked
+    let quantity = parentElement.querySelector('.quantity');
+
+
     // console.log(quantity);
     let quantityValue = quantity.innerText;
     console.log(quantityValue);
@@ -31,7 +34,10 @@ for(let i = 0; i < minusNum.length; i++){
 }
 
 function removeNum(e){
-    let quantity = document.querySelector('.quantity');
+
+    let parentElement = e.target.closest('.card-body') //closest represents the closest element that's been clicked
+    let quantity = parentElement.querySelector('.quantity'); //closest element with 'quality' class that is in the card-body element
+
     // console.log(quantity);
     let quantityValue = quantity.innerText;
     console.log(quantityValue);
@@ -77,4 +83,36 @@ function addLike(e){
         this.style.color = 'red'; //'this' refers to the element that triggered the event
        
     };
+    
+// Quantity should be multiplied to the cost of the product 
+// Added to the other products
+// Delete if - is clicked
+// Total is displayed on the screen 
 
+//Total Sum
+let total = document.getElementsByClassName('fa-plus-circle');
+//  console.log(total)
+ 
+for(let i = 0 ; i < total.length; i++){
+    total[i].addEventListener('click', totalPrice);
+}
+
+function totalPrice(e){
+    let a = document.getElementsByClassName('unit-price').innerText;
+    let b = document.getElementsByClassName('quantity').value;
+    let totalSum = 0;
+
+    // let result = parseInt(a) * parseInt(b);
+    // result += document.getElementsByClassName('card-body');
+   
+   for(let i = 0; i < a.length; i++){
+    let price = parseInt(a[i].innerText);
+    let quantity = parseInt(b[i].innerText);
+
+    totalSum += price * quantity;
+   }
+  
+   document.getElementsByClassName('total').innerText = totalSum;
+    
+
+}
