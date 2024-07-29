@@ -24,6 +24,8 @@ function addNum(e){
     console.log(quantityValue);
 
     quantity.innerText = quantityValue;
+
+    totalPrice();
 }
 
 //Minus operation
@@ -48,6 +50,7 @@ function removeNum(e){
     console.log(quantityValue);
 
     quantity.innerText = quantityValue;
+    totalPrice();
 }
 
 //Remove Items from shopping card
@@ -90,29 +93,46 @@ function addLike(e){
 // Total is displayed on the screen 
 
 //Total Sum
-let total = document.getElementsByClassName('fa-plus-circle');
-//  console.log(total)
+// let total = document.querySelector('.fa-plus-circle');
+// //  console.log(total)
  
-for(let i = 0 ; i < total.length; i++){
-    total[i].addEventListener('click', totalPrice);
-}
+// for(let i = 0 ; i < total.length; i++){
+//     total[i].addEventListener('click', totalPrice);
+// }
 
-function totalPrice(e){
-    let a = document.getElementsByClassName('unit-price').innerText;
-    let b = document.getElementsByClassName('quantity').value;
-    let totalSum = 0;
+let products = document.querySelectorAll(".card");
+let totalPriceElement = document.querySelector(".total");
+
+let totalSum = 0;
+
+function totalPrice(){
+    totalSum = 0;
+    products.forEach((product) => {
+        const a = product.querySelector('.unit-price');
+        const b = product.querySelector('.quantity');
+        
+    
+        const quantity = parseInt(b.textContent);
+        const unitprice = parseFloat(a.textContent.replace("$",""));
+        console.log(unitprice);
+        
+        totalSum += quantity * unitprice;
+    })
+
+    totalPriceElement.textContent = `${totalSum.toFixed(2)} $`;
+
 
     // let result = parseInt(a) * parseInt(b);
     // result += document.getElementsByClassName('card-body');
    
-   for(let i = 0; i < a.length; i++){
-    let price = parseInt(a[i].innerText);
-    let quantity = parseInt(b[i].innerText);
+//    for(let i = 0; i < totalSum.length; i++){
+//     let price = parseInt(a[i].innerText);
+//     let quantity = parseInt(b[i].innerText);
 
-    totalSum += price * quantity;
-   }
+//     totalSum += price * quantity;
+//    }
   
-   document.getElementsByClassName('total').innerText = totalSum;
+//   document.getElementsByClassName('total').innerText = totalSum;
     
 
 }
